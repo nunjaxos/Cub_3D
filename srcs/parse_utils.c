@@ -80,15 +80,23 @@ int parse_rgb(char *str)
     return (r << 16) | (g << 8) | b;
 }
 
-void check_map_walls(t_data *data)
+static char map_at(t_data *d, int i, int j)
+{
+    if (i < 0 || i >= d->map_height) return ' ';
+    int len = (int)strlen(d->map[i]);
+    if (j < 0 || j >= len) return ' ';
+    return d->map[i][j];
+}
+
+void check_map_walls(t_data *d)
 {
     int i = 0;
     int j = 0;
 
-    j = 0;
-    while (j < data->map_width)
+    while (j < d->map_width)
     {
-        if (data->map[0][j] != '1' && data->map[0][j] != ' ')
+        char c = map_at(d, 0, j);
+        if (c != '1' && c != ' ')
         {
             printf("Error\nTop row not closed by walls at column %d\n", j);
             exit(EXIT_FAILURE);
@@ -96,9 +104,10 @@ void check_map_walls(t_data *data)
         j++;
     }
     j = 0;
-    while (j < data->map_width)
+    while (j < d->map_width)
     {
-        if (data->map[data->map_height - 1][j] != '1' && data->map[data->map_height - 1][j] != ' ')
+        char c = map_at(d, d->map_height - 1, j);
+        if (c != '1' && c != ' ')
         {
             printf("Error\nBottom row not closed by walls at column %d\n", j);
             exit(EXIT_FAILURE);
@@ -106,9 +115,10 @@ void check_map_walls(t_data *data)
         j++;
     }
     i = 0;
-    while (i < data->map_height)
+    while (i < d->map_height)
     {
-        if (data->map[i][0] != '1' && data->map[i][0] != ' ')
+        char c = map_at(d, i, 0);
+        if (c != '1' && c != ' ')
         {
             printf("Error\nLeft column not closed by walls at row %d\n", i);
             exit(EXIT_FAILURE);
@@ -116,9 +126,10 @@ void check_map_walls(t_data *data)
         i++;
     }
     i = 0;
-    while (i < data->map_height)
+    while (i < d->map_height)
     {
-        if (data->map[i][data->map_width - 1] != '1' && data->map[i][data->map_width - 1] != ' ')
+        char c = map_at(d, i, d->map_width - 1);
+        if (c != '1' && c != ' ')
         {
             printf("Error\nRight column not closed by walls at row %d\n", i);
             exit(EXIT_FAILURE);
@@ -127,22 +138,23 @@ void check_map_walls(t_data *data)
     }
 }
 
-
 static void invalid_neighbor(t_data *d, int i, int j)
 {
     if (i == 0 || i == d->map_height - 1)
         { printf("Error\nPlayer starting position on top/bottom edge at (%d,%d)\n", j, i); exit(EXIT_FAILURE); }
     if (j == 0 || j == d->map_width - 1)
         { printf("Error\nPlayer starting position on left/right edge at (%d,%d)\n", j, i); exit(EXIT_FAILURE); }
-    if (i > 0 && d->map[i - 1][j] == ' ')
+
+    if (map_at(d, i-1, j) == ' ')
         { printf("Error\nPlayer starting position touches empty space above at (%d,%d)\n", j, i); exit(EXIT_FAILURE); }
-    if (i < d->map_height - 1 && d->map[i + 1][j] == ' ')
+    if (map_at(d, i+1, j) == ' ')
         { printf("Error\nPlayer starting position touches empty space below at (%d,%d)\n", j, i); exit(EXIT_FAILURE); }
-    if (j > 0 && d->map[i][j - 1] == ' ')
+    if (map_at(d, i, j-1) == ' ')
         { printf("Error\nPlayer starting position touches empty space left at (%d,%d)\n", j, i); exit(EXIT_FAILURE); }
-    if (j < d->map_width - 1 && d->map[i][j + 1] == ' ')
+    if (map_at(d, i, j+1) == ' ')
         { printf("Error\nPlayer starting position touches empty space right at (%d,%d)\n", j, i); exit(EXIT_FAILURE); }
 }
+
 
 
 void check_map_chars(t_data *d)
