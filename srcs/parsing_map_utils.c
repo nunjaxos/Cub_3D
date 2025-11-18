@@ -6,8 +6,8 @@ char *padd_line(char *line, int len)
 	char *new_line;
 
 	i = 0;
-	new_line = malloc(len);
-	ft_bzero(new_line, len);
+	new_line = malloc(len + 1);
+	ft_bzero(new_line, len + 1);
 	while(i < len)
 	{
 		if(i < (int)ft_strlen(line) && line[i])
@@ -44,12 +44,11 @@ char **new_map(t_data *data)
 
 bool check_wall(t_data *data, int lne, int i, int j)
 {
-	if( i == 0 || j == 0 || i == data->map_height
-			|| j == lne - 1 )
-			return (true);
-	return (false);
-
+    if (i == 0 || j == 0 || i == data->map_height - 1 || j == lne - 1)
+        return (true);
+    return (false);
 }
+
 bool check_out(char **map, int i, int j)
 {
 	if((map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'S'

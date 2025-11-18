@@ -53,9 +53,9 @@ void pars_textures(char *line, t_data *data, int *offset)
 		else if(!ft_strncmp("EA", line, 2))
 			data->textures.east = ft_strdup(find_path(line, "EA", data));
 		else if (!ft_strncmp("C", line, 1))
-			data->ceiling = ft_strdup(find_int(line, data));
+			data->ceiling_color = parse_color_to_int(line, data);
 		else if (!ft_strncmp("F", line, 1))
-			data->floor = ft_strdup(find_int(line, data));
+			data->floor_color = parse_color_to_int(line, data);
 	}
 }
 

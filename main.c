@@ -1,4 +1,4 @@
-#include "include/cub_3d.h"
+# include "include/cub_3d.h"
 
 void init_buffer(t_data *mlx)
 {
@@ -18,139 +18,6 @@ void my_mlx_pixel_put(t_image *img, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-void draw_block(t_image *img, int x, int y, int cool)
-{
-	int i; 
-	int j ; 
-	j = x; 
-	while (j < x + 15) 
-	{ i = y; 
-		while (i < y + 15) 
-		{ 
-			my_mlx_pixel_put(img, j, i, cool); 
-			i++; 
-		} 
-			j++; 
-		} 
-}
-
-void draw_vertical_lines(t_data *data)
-{
-    int x = 0;
-    int y;
-
-    while (x < WIN_WIDTH)
-    {
-        y = 0;
-        while (y < WIN_HEIGHT)
-        {
-            my_mlx_pixel_put(&data->buffer, x, y, 0xFF00FF);
-            y++;
-        }
-        x += TILE_SIZE;
-    }
-}
-
-
-void draw_horizontal_lines(t_data *data)
-{
-    int y = 0;
-    int x;
-
-    while (y < WIN_HEIGHT)
-    {
-        x = 0;
-        while (x < WIN_WIDTH)
-        {
-            my_mlx_pixel_put(&data->buffer, x, y, 0xFF00FF);
-            x++;
-        }
-        y += TILE_SIZE;
-    }
-}
-
-// void draw_map_blocks(t_data *data)
-// {
-//     int row = 0;
-//     int col;
-
-//     while (data->map[row])
-//     {
-//         col = 0;
-//         while (data->map[row][col])
-//         {
-//             if (data->map[row][col] == '1')
-//                 draw_block(&data->buffer, col * TILE_SIZE, row * TILE_SIZE, 0xFFFFFF);
-//             else
-//                 draw_block(&data->buffer, col * TILE_SIZE, row * TILE_SIZE, 0x222222);
-//             col++;
-//         }
-//         row++;
-//     }
-// }
-
-void draw_player(t_data *data)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (data->map[i][j] != ' ' && data->map[i][j] != '1' && data->map[i][j] != '0')
-				draw_block(&data->buffer, i, j, 0x00FF00);
-			j++;
-			
-		}
-		i++;
-	}
-}
-void draw_background(t_data *data)
-{
-    // int y = 0;
-    // int x;
-
-    // while (y < WIN_HEIGHT)
-    // {
-    //     x = 0;
-    //     while (x < WIN_WIDTH)
-    //     {
-    //         my_mlx_pixel_put(&data->buffer, x, y, 0x000000);
-    //         x++;
-    //     }
-    //     y++;
-    // }
-	draw_player(data);
-    draw_vertical_lines(data);
-    draw_horizontal_lines(data);
-}
-
-
-// void draw_background(t_data *data)
-// {
-// 	int y;
-// 	int i;
-
-// 	i = 0;
-// 	while(data->map[i])
-// 	{
-// 		y = 0;
-// 		while(data->map[i][y])
-// 		{
-// 			if(data->map[i][y] == '1')
-// 			// if(data->map[i][y] == '1')
-// 			// 	draw_block(&data->buffer, y * TILE_SIZE, i * TILE_SIZE, 0xFF0000);
-// 			// else if(data->map[i][y] != '0' && data->map[i][y] != '1'&& data->map[i][y] != ' ')
-// 			// 	draw_block(&data->buffer, y * TILE_SIZE, i * TILE_SIZE, 0x00FF00);
-// 			y++;
-// 		}
-// 		i++;
-// 	}
-	
-// }
 
 int	key_press(int keycode)
 {
@@ -167,6 +34,7 @@ int	key_press(int keycode)
 	// 	mov_left(mlx);
 	// else if (keycode == S || keycode == 65364)
 	// 	mov_down(mlx);
+	// draw_background(data);
 	return (0);
 }
 
@@ -195,15 +63,59 @@ void parse_cub(char *filename, t_data *data)
 	map_valid(new_map(data), data);
 	close(fd);
 }
+void init_player(t_data *data)
+{
+    data->player.move_speed = 3;
+    data->player.rotation_speed = 0.09;
+	data->player.x = data->player_x*TILE_SIZE + (TILE_SIZE /2);
+	data->player.y = data->player_y *TILE_SIZE + (TILE_SIZE /2);
+    if (data->player_dir == 'N')
+        data->player.angle = -M_PI / 2;
+    else if (data->player_dir == 'S')
+        data->player.angle = M_PI / 2;
+    else if (data->player_dir == 'W')
+        data->player.angle = M_PI;
+    else
+        data->player.angle = 0;
+}
+void draw_ceiling_floor(t_data *data)
+{
+    int x, y;
+    
+    // Draw ceiling (top half)
+    y = 0;
+    while (y < WIN_HEIGHT / 2)
+    {
+        x = 0;
+        while (x < WIN_WIDTH)
+        {
+            my_mlx_pixel_put(&data->buffer, x, y, data->ceiling_color);
+            x++;
+        }
+        y++;
+    }
+    
+    // Draw floor (bottom half)
+    while (y < WIN_HEIGHT)
+    {
+        x = 0;
+        while (x < WIN_WIDTH)
+        {
+            my_mlx_pixel_put(&data->buffer, x, y, data->floor_color);
+            x++;
+        }
+        y++;
+    }
+}
 
 int game_loop(t_data *data)
 {
 	
-    draw_background(data);
+    // draw_background(data);
+    draw_ceiling_floor(data);
     mlx_put_image_to_window(data->mlx, data->window, data->buffer.img_ptr, 0, 0);
     return (0);
 }
-
 int main(int ac, char *av[])
 {
     t_data  *data;
@@ -218,17 +130,16 @@ int main(int ac, char *av[])
 		return(1);
 	ft_bzero(data, sizeof(t_data));
     parse_cub(av[1], data);
-
 	data->mlx = mlx_init();
 	if(!data->mlx)
 	{
 		//free_all;
 		return (1);
 	}
+    init_buffer(data);
+    init_player(data);
 	data->window = mlx_new_window(data->mlx, WIN_WIDTH ,
 			 WIN_HEIGHT , "Cub_3D");
-	init_buffer(data);
-
 	
 	mlx_hook(data->window, 2, 1L << 0, key_press, data);
 	mlx_hook(data->window, 17, 0, sed, data);

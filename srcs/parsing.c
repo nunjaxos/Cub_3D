@@ -85,54 +85,28 @@ bool	ft_isspace(char c)
 }
 
 
-char *find_int(char *line, t_data *data)
+int parse_color_to_int(char *line, t_data *data)
 {
-	int i;
-	int j;
-	int flag;	
-
-	i = 0;
-	flag = 0;
-	if (!line)
-		return(NULL);
-	if(!ft_strncmp("C", line, 1) || !ft_strncmp("F", line, 1))
-	{
-		line++;
-		line = skip_spacess(line);
-	}
-	while(line[i])
-	{
-		while (line[i] && ft_isspace(line[i]))
-			i++;
-		if (line[i] && !ft_isdigit(line[i]))
-		{
-			printf("errrrrrr\n");
-			free_all_and_print_error(data, NULL);
-		}
-		j = i;
-		while(line[j] && ft_isdigit(line[j]))
-			j++;
-		if(ft_atoi(ft_substr(line, i, j - i)) < 0 || 
-			ft_atoi(ft_substr(line, i, j - i)) > 255)
-		{
-			printf("errrrrrr\n");
-			free_all_and_print_error(data, NULL);
-		}
-		i = j;
-		while (line[i] && ft_isspace(line[i]))
-			i++;
-		if (!line[i])
-			break ;
-		if(line[i] && line[i] == ',')
-			flag++;
-		else 
-		{
-			printf("	errrrrrr\n");
-			free_all_and_print_error(data, NULL);
-		}
-		if(flag > 2)
-			free_all_and_print_error(data, NULL);
-		i++;
-	}
-	return(line);
+    int r, g, b;
+    int i = 0;
+    
+    if (*line == 'C' || *line == 'F')
+        line++;
+    line = skip_spacess(line);
+    r = ft_atoi(line);
+    if (r < 0 || r > 255)
+        free_all_and_print_error(data, NULL);
+    while (line[i] && line[i] != ',')
+        i++;
+    i++; 
+    g = ft_atoi(line + i);
+    if (g < 0 || g > 255)
+        free_all_and_print_error(data, NULL);
+    while (line[i] && line[i] != ',')
+        i++;
+    i++;
+    b = ft_atoi(line + i);
+    if (b < 0 || b > 255)
+        free_all_and_print_error(data, NULL);
+    return (r << 16 | g << 8 | b);
 }

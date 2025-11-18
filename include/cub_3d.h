@@ -14,18 +14,28 @@
 # include <string.h>
 # include <unistd.h>
 
+# define TILE_SIZE 32
 #define WIN_WIDTH 1200
-#define WIN_HEIGHT 800
-# define ESC 65307
-# define W 119
-# define A 97
-# define S 115
-# define D 100
+# define WIN_HEIGHT 800
 # define CLOSE 17
-# define TILE_SIZE 64
 # define PI 3.1415926535
 # define TWO_PI 6.283185307 // represents a full 360° circle in radians.
 # define FOV 1.0471975512 // 60° in radians
+
+typedef enum e_key
+{
+	ESC = 65307,
+	W = 119,
+	A = 97,
+	S = 115,
+	D = 100,
+	LEFT = 65361,
+	RIGHT = 65363,
+	UP = 65362,
+	DOWN = 65364,
+	SPACE = 32,
+	F_Key = 102
+}					t_key;
 
 typedef struct s_textures {
     char *north;
@@ -73,10 +83,12 @@ typedef struct s_data
 {
     char **map;
     char player_dir;
+    int player_x;
+    int player_y;
     int map_width;
     int map_height;
-    char *floor;
-    char *ceiling;
+    int floor_color;
+    int ceiling_color;
     void *mlx;
     void *window;
     t_image buffer;
@@ -93,7 +105,7 @@ bool	search_map(char *line);
 char	*skip_spacess(char *line);
 bool check_textures(char *line);
 char *find_path(char *line, char *position, t_data *data);
-char *find_int(char *line, t_data *data);
+int parse_color_to_int(char *line, t_data *data);
 void	has_cub_extension(char *path_file, t_data *data);
 void    parse_cub(char *filename, t_data *data);
 void define_textures(t_data *data, int fd);
@@ -106,4 +118,6 @@ bool check_wall(t_data *data, int lne, int i, int j);
 bool check_out(char **map, int i, int j);
 void check_valid_character(char c, t_data *data, char **map);
 
+//raycast
+void    shoot_one_ray(t_data *data, double angle);
 #endif
