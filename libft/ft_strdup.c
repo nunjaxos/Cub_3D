@@ -3,43 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abhmidat <abhmidat@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 14:38:29 by abhmidat          #+#    #+#             */
-/*   Updated: 2024/11/15 20:09:34 by abhmidat         ###   ########.fr       */
+/*   Created: 2024/10/26 13:04:35 by atigzim           #+#    #+#             */
+/*   Updated: 2025/04/21 18:07:11 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+static size_t	len(char *c)
 {
-	char	*dup;
 	size_t	i;
 
-	if (!s)
-		return (NULL);
-	dup = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (!dup)
+	i = 0;
+	while (c[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*d;
+	size_t	i;
+
+	if(!s)
 		return (NULL);
 	i = 0;
+	d = (char *)malloc(sizeof(char) * len((char *)s) + 1);
+	if (!d)
+		return (NULL);
 	while (s[i])
 	{
-		dup[i] = s[i];
+		d[i] = s[i];
 		i++;
 	}
-	dup[i] = '\0';
-	return (dup);
+	d[i] = '\0';
+	return (d);
 }
-// #include <stdio.h>
-// int main()
-// {
-// 	char st[] = "valo";
-// 	char *dup = ft_strdup(st);
-// 	printf("ori :%s", st);
-// 	if (!dup)
-// 		return (0);
-// 	else
-// 		printf("\nduplicate :%s", dup);
-// 	free(dup);
-// }

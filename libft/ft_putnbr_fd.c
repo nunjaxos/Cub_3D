@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abhmidat <abhmidat@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: atigzim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 18:25:45 by abhmidat          #+#    #+#             */
-/*   Updated: 2024/11/15 20:05:26 by abhmidat         ###   ########.fr       */
+/*   Created: 2024/10/31 17:08:11 by atigzim           #+#    #+#             */
+/*   Updated: 2024/10/31 17:08:14 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,25 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	char	c;
-	int		mod;
-
-	mod = 1;
-	if (n == -2147483648)
 	{
-		write(fd, "-2147483648", 11);
-		return ;
-	}
-	else if (n < 0)
-	{
-		write(fd, "-", 1);
-		n = -n;
-	}
-	while (n / mod >= 10)
-		mod *= 10;
-	while (mod > 0)
-	{
-		c = (n / mod) + 48;
-		write(fd, &c, 1);
-		n %= mod;
-		mod /= 10;
+		if (n == -2147483648)
+		{
+			ft_putnbr_fd(n / 10, fd);
+			ft_putchar_fd('8', fd);
+		}
+		else if (n < 0)
+		{
+			ft_putchar_fd('-', fd);
+			ft_putnbr_fd(-n, fd);
+		}
+		else if (n > 9)
+		{
+			ft_putnbr_fd(n / 10, fd);
+			ft_putnbr_fd(n % 10, fd);
+		}
+		else if (n <= 9)
+		{
+			ft_putchar_fd((n + '0'), fd);
+		}
 	}
 }
-// int main()
-// {
-// 	int	fd = open("nbr_test.txt", O_WRONLY | O_CREAT);
-// 	ft_putnbr_fd(0, fd);
-// close(fd);
-// }

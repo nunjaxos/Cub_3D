@@ -3,36 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abhmidat <abhmidat@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 19:31:17 by abhmidat          #+#    #+#             */
-/*   Updated: 2024/11/15 20:10:54 by abhmidat         ###   ########.fr       */
+/*   Created: 2024/11/04 13:43:44 by atigzim           #+#    #+#             */
+/*   Updated: 2024/11/21 00:41:24 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// void	test(unsigned int i, char *c)
+// void	myfunc(unsigned int i, char *c)
 // {
-// 	if (i && *c >= 'a' && *c <= 'z')
-// 		*c = *c -32;
-//	}
+// 	if (*c >= 'a' && *c <= 'z')
+// 		*c -= 32;
+// 	printf("indxe : %d , character : %c \n", i, *c);
+//}
+
 void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	unsigned int	i;
+	unsigned int	j;
 
-	if (!s || !f)
+	if (s == NULL || f == NULL)
 		return ;
-	i = 0;
-	while (s[i])
+	j = 0;
+	while (s[j])
 	{
-		f(i, &s[i]);
-		i++;
+		f(j, &s[j]);
+		j++;
 	}
 }
-// int main()
-// {
-// 	char	s[] = "Hello";
-// 	ft_striteri(s, test);
-// 	printf("%s", s);
-// }

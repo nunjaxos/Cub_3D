@@ -3,37 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abhmidat <abhmidat@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 14:59:35 by abhmidat          #+#    #+#             */
-/*   Updated: 2024/11/14 17:14:21 by abhmidat         ###   ########.fr       */
+/*   Created: 2024/10/24 21:05:30 by atigzim           #+#    #+#             */
+/*   Updated: 2025/04/21 17:57:27 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void	*ft_memchr(const void *p, int v, size_t num)
 {
-	unsigned char	*ss;
+	unsigned char	*s;
 	size_t			i;
-
-	ss = (unsigned char *)s;
+	if(!p)
+		return (NULL) ;
+	s = (unsigned char *)p;
 	i = 0;
-	while (i < n)
+	while (i < num)
 	{
-		if (ss[i] == (unsigned char)c)
-			return (ss + i);
+		if (s[i] == (unsigned char)v)
+			return ((char *)(p + i));
 		i++;
 	}
 	return (NULL);
 }
-
-// int  main()
-// {
-// 	int n[3] = {1337, 42, 78};
-// 	int *i = ft_memchr(n, 78, 10);
-// 	if (i == NULL)
-// 		printf("ABDO\n");
-// 	else
-// 		printf("%d",*i);
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abhmidat <abhmidat@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 23:47:23 by abhmidat          #+#    #+#             */
-/*   Updated: 2024/11/15 20:22:49 by abhmidat         ###   ########.fr       */
+/*   Created: 2024/10/27 14:58:13 by atigzim           #+#    #+#             */
+/*   Updated: 2024/11/18 12:24:47 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,24 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*sub;
+	char	*p;
 	size_t	i;
 
-	if (!s || start >= ft_strlen(s))
+	if (!s)
+		return (NULL);
+	if (start >= ft_strlen(s))
 		return (ft_strdup(""));
+	i = 0;
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
-	sub = (char *)malloc(len + 1);
-	if (!sub)
+	p = (char *)malloc(sizeof(char) * (len + 1));
+	if (!p)
 		return (NULL);
-	i = 0;
-	while (i < len && s[start])
+	while (i < len)
 	{
-		sub[i] = s[start + i];
+		p[i] = s[i + start];
 		i++;
 	}
-	sub[i] = '\0';
-	return (sub);
+	p[i] = '\0';
+	return (p);
 }
-// int main()
-// {
-//     char    *st = "Hello nunja";
-//     char    *sub = ft_substr(st,0,5);
-// 	printf("%s", sub);
-// }

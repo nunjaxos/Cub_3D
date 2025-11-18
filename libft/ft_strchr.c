@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abhmidat <abhmidat@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 16:03:18 by abhmidat          #+#    #+#             */
-/*   Updated: 2024/11/16 15:18:42 by abhmidat         ###   ########.fr       */
+/*   Created: 2024/10/22 14:34:37 by atigzim           #+#    #+#             */
+/*   Updated: 2025/04/21 18:06:39 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,15 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
-	if (!s)
+	if(!s)
 		return (NULL);
-	while (s[i] != (char)c)
+	while (s[i] && s[i] == '\n')
 	{
-		if (!s[i])
-			return (0);
+		if (s[i] == (char)c)
+			return ((char *)(s + i));
 		i++;
 	}
-	return ((char *)s + i);
+	if ((char)s[i] == (char)c)
+		return ((char *)(s + i));
+	return (0);
 }
-
-// int main()
-// {
-// 	const char st[] = "valorant";
-// 	char c = 'a';
-// 	printf("%s", ft_strchr(st,c));
-// }

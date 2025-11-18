@@ -3,62 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abhmidat <abhmidat@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 11:45:16 by abhmidat          #+#    #+#             */
-/*   Updated: 2024/11/14 13:25:20 by abhmidat         ###   ########.fr       */
+/*   Created: 2024/11/05 23:39:11 by atigzim           #+#    #+#             */
+/*   Updated: 2024/11/16 17:48:18 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned int	num_len(int n)
+static int	ft_length(int n)
 {
-	unsigned int	n_len;
+	size_t	j;
 
-	n_len = 0;
+	j = 0;
 	if (n == 0)
 		return (1);
 	if (n < 0)
-		n_len++;
-	while (n)
 	{
-		n /= 10;
-		n_len++;
+		n *= -1;
+		j++;
 	}
-	return (n_len);
+	while (n != 0)
+	{
+		n = (n / 10);
+		j++;
+	}
+	return (j);
 }
 
 char	*ft_itoa(int n)
 {
-	char			*str;
-	unsigned int	len;
-	long			nb;
+	int		j;
+	int		h;
+	char	*p;
 
-	len = num_len(n);
-	nb = n;
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str)
+	j = ft_length(n);
+	if (n == INT_MIN)
+		return (ft_strdup("-2147483648"));
+	h = j - 1;
+	p = malloc(sizeof(char) * (j + 1));
+	if (!p)
 		return (NULL);
+	if (n == 0)
+		p[h] = '0';
 	if (n < 0)
 	{
-		str[0] = '-';
-		nb *= -1;
+		p[0] = '-';
+		n = -n;
 	}
-	if (nb == 0)
-		str[0] = '0';
-	str[len] = '\0';
-	while (nb)
+	while (n != 0)
 	{
-		str[len - 1] = (nb % 10) + '0';
-		nb /= 10;
-		len--;
+		p[h--] = ((n % 10) + 48);
+		n = n / 10;
 	}
-	return (str);
+	p[j] = '\0';
+	return (p);
 }
 
 // int main()
 // {
-// 	int	n = -2147483648ll;
-// 	printf("%s\nnum len : %d", ft_itoa(n),num_len(n));
+// 	int h = -2147483648LL;
+// 	printf("%s",ft_itoa(h));
 // }

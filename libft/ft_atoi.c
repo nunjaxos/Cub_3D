@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abhmidat <abhmidat@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 23:29:09 by abhmidat          #+#    #+#             */
-/*   Updated: 2024/11/15 19:41:00 by abhmidat         ###   ########.fr       */
+/*   Created: 2024/10/22 00:17:34 by atigzim           #+#    #+#             */
+/*   Updated: 2025/07/22 21:46:24 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,25 @@
 
 int	ft_atoi(const char *str)
 {
-	long	i;
-	long	r;
-	int		c;
-
+	int (i), (j), (nb);
+	if (!str)
+		return (0);
 	i = 0;
-	r = 0;
-	c = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	j = 1;
+	nb = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	if (str[i] == '-' || str[i] == '+')
+	if (str[i] == '+')
+		i++;
+	else if (str[i] == '-')
 	{
-		if (str[i] == '-')
-			c = -1;
+		j *= -1;
 		i++;
 	}
-	while (str[i] >= 48 && str[i] <= 57)
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		r = r * 10 + str[i] - 48;
+		nb = (nb * 10) + (str[i] - 48);
 		i++;
 	}
-	return (r * c);
+	return (nb * j);
 }
-
-// int main()
-// {
-// 	char st[] = "				  +12 5a58";
-// 	printf("%d\n", atoi(st));
-// 	printf("%d\n", ft_atoi(st));
-// }

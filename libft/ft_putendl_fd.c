@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abhmidat <abhmidat@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 18:10:24 by abhmidat          #+#    #+#             */
-/*   Updated: 2024/11/16 21:31:54 by abhmidat         ###   ########.fr       */
+/*   Created: 2024/11/01 13:58:02 by atigzim           #+#    #+#             */
+/*   Updated: 2024/11/18 14:41:04 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,13 @@ void	ft_putendl_fd(char *s, int fd)
 {
 	int	i;
 
-	if (!s || fd < 0)
-		return ;
 	i = 0;
+	if (!s)
+		return ;
 	while (s[i])
-		write(fd, &s[i++], 1);
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
 	write(fd, "\n", 1);
 }
-// int main()
-// {
-// 	char	ss[] = "Hello, World";
-// 	int	fd = open("test1_file.txt", O_WRONLY | O_CREAT);
-// 	ft_putendl_fd(ss, fd);
-// close(fd);
-// }

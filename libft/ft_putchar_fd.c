@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abhmidat <abhmidat@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 17:20:26 by abhmidat          #+#    #+#             */
-/*   Updated: 2024/11/16 02:14:28 by abhmidat         ###   ########.fr       */
+/*   Created: 2024/10/31 12:58:49 by atigzim           #+#    #+#             */
+/*   Updated: 2024/11/18 14:56:25 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,5 @@
 
 void	ft_putchar_fd(char c, int fd)
 {
-	if (fd >= 0)
-		write(fd, &c, 1);
+	write(fd, &c, 1);
 }
-
-// int main()
-// {
-// 	int	fd = open("test_file.txt", O_RDWR);
-// 	ft_putchar_fd('A', fd);
-// 	close(fd);
-// }
