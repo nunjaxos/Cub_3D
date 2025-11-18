@@ -1,4 +1,4 @@
-#include "../../include/cub_3d.h"
+#include "../include/cub_3d.h"
 
 void check_not_valid_character(char c)
 {

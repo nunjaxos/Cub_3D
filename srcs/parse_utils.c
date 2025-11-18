@@ -1,4 +1,4 @@
-#include "../../include/cub_3d.h"
+#include "../include/cub_3d.h"
 
 bool check_textures(char *line)
 {

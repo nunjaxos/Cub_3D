@@ -1,4 +1,4 @@
-#include "../../include/cub_3d.h"
+#include "../include/cub_3d.h"
 
 char *strip_newline(char *line)
 {

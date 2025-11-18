@@ -1,4 +1,4 @@
-#include "../../include/cub_3d.h"
+#include "../include/cub_3d.h"
 
 void map_valid(char **map, t_data *data)
 {
@@ -22,8 +22,8 @@ void map_valid(char **map, t_data *data)
 				check_valid_character(map[i][j], data, map);
 			if(map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
 			{
-				data->player_x = j;
-				data->player_y = i;
+				data->player.x = j;
+				data->player.y = i;
 				data->player_dir = map[i][j];
 				flag++;
 			}

@@ -2,7 +2,7 @@
 # define CUB_3D_3D
 
 # include <mlx.h> 
-# include "../srcs/libft/libft.h"
+# include "../libft/libft.h"
 # include <math.h>
 # include <ctype.h>
 # include <fcntl.h>
@@ -14,7 +14,7 @@
 # include <string.h>
 # include <unistd.h>
 
-#define WIN_WIDTH 1900
+#define WIN_WIDTH 1200
 #define WIN_HEIGHT 800
 # define ESC 65307
 # define W 119
@@ -23,7 +23,9 @@
 # define D 100
 # define CLOSE 17
 # define TILE_SIZE 64
-
+# define PI 3.1415926535
+# define TWO_PI 6.283185307 // represents a full 360° circle in radians.
+# define FOV 1.0471975512 // 60° in radians
 
 typedef struct s_textures {
     char *north;
@@ -43,6 +45,17 @@ typedef struct s_image
 	int			height;
 }    t_image;
 
+typedef struct s_ray
+{
+    double ray_angle;
+    double distance;
+
+    double hit_x;
+    double hit_y;
+
+    int is_vertical_hit;   // 1 = vertical wall, 0 = horizontal wall
+} t_ray;
+
 typedef struct s_player
 {
     double        x;
@@ -59,8 +72,6 @@ typedef struct s_player
 typedef struct s_data
 {
     char **map;
-    int player_x;
-    int player_y;
     char player_dir;
     int map_width;
     int map_height;
@@ -70,6 +81,8 @@ typedef struct s_data
     void *window;
     t_image buffer;
     t_textures textures;
+    t_player player;
+    t_ray    rays[WIN_WIDTH];
 }   t_data;
 
 char	*get_next_line(int fd);
