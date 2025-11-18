@@ -1,4 +1,4 @@
-#include "cub_3d.h"
+#include "include/cub_3d.h"
 
 void init_buffer(t_data *mlx)
 {
@@ -228,7 +228,8 @@ int main(int ac, char *av[])
 	data->window = mlx_new_window(data->mlx, WIN_WIDTH ,
 			 WIN_HEIGHT , "Cub_3D");
 	init_buffer(data);
-	init_player(data);
+
+	
 	mlx_hook(data->window, 2, 1L << 0, key_press, data);
 	mlx_hook(data->window, 17, 0, sed, data);
 	mlx_loop_hook(data->mlx, game_loop, (t_data *) data);

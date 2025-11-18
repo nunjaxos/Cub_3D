@@ -1,11 +1,11 @@
 NAME = cub3d
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
-SRC = main.c gnl/gnl.c parsing/parsing.c parsing/parse_utils.c parsing/free_file.c\
-	  parsing/parsing_map_utils.c parsing/parsing_map.c
+SRC = main.c srcs/parsing/parsing.c srcs/parsing/parse_utils.c srcs/parsing/free_file.c\
+	  srcs/parsing/parsing_map_utils.c srcs/parsing/parsing_map.c
 OBJ = $(SRC:.c=.o)
-INCLUDE = cub_3d.h
-LIBFT = libft/libft.a
+INCLUDE = include/cub_3d.h
+LIBFT = srcs/libft/libft.a
 MLX = -Lmlx -lmlx -lX11 -lXext
 
 all: $(NAME)

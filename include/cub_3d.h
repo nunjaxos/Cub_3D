@@ -2,7 +2,7 @@
 # define CUB_3D_3D
 
 # include <mlx.h> 
-# include "libft/libft.h"
+# include "../srcs/libft/libft.h"
 # include <math.h>
 # include <ctype.h>
 # include <fcntl.h>

@@ -1,4 +1,4 @@
-#include "../cub_3d.h"
+#include "../../include/cub_3d.h"
 
 char *padd_line(char *line, int len)
 {

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abhmidat <abhmidat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 06:07:09 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/14 06:07:10 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/11/18 13:02:54 by abhmidat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
-#include "../cub_3d.h"
+#include "libft.h"
 
 char	*ft_readline(int bytes, char *line, int fd)
 {

@@ -1,4 +1,4 @@
-#include "../cub_3d.h"
+#include "../../include/cub_3d.h"
 
 void map_valid(char **map, t_data *data)
 {
