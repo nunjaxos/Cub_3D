@@ -2,7 +2,7 @@ NAME = cub3d
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
 SRC = main.c srcs/parsing.c srcs/parse_utils.c srcs/free_file.c\
-	  srcs/parsing_map_utils.c srcs/parsing_map.c srcs/raycast.c 
+	  srcs/parsing_map_utils.c srcs/parsing_map.c #srcs/raycast.c srcs/raycast_utils.c
 
 OBJ = $(SRC:.c=.o)
 INCLUDE = include/cub_3d.h

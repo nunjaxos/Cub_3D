@@ -14,8 +14,8 @@
 # include <string.h>
 # include <unistd.h>
 
-# define TILE_SIZE 32
-#define WIN_WIDTH 1200
+# define TILE_SIZE 32 // Makes map fit in window
+# define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
 # define CLOSE 17
 # define PI 3.1415926535
@@ -91,6 +91,8 @@ typedef struct s_data
     int ceiling_color;
     void *mlx;
     void *window;
+    double temp_hit_x;
+    double temp_hit_y;
     t_image buffer;
     t_textures textures;
     t_player player;
@@ -119,5 +121,13 @@ bool check_out(char **map, int i, int j);
 void check_valid_character(char c, t_data *data, char **map);
 
 //raycast
-void    shoot_one_ray(t_data *data, double angle);
+
+void shoot_ray_from_position(t_data *data, int start_x, int start_y, double angle, int color);
+void cast_rays(t_data *data);
+int pos_is_wall(t_data *data, double dx, double dy);
+int direction_check(double angle, char c);
+int view_check(double angle, double *inter, double *step, int is_horz);
+double update_angle(double angle);
+double calc_distance(double x1, double x2, double y1, double y2);
+void draw_3d_wall_strip(t_data *data, int strip_id);
 #endif
