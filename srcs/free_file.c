@@ -1,29 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_file.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/28 12:08:20 by atigzim           #+#    #+#             */
+/*   Updated: 2025/11/28 12:28:51 by atigzim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub_3d.h"
 
-void check_not_valid_character(char c)
+void	free_data(t_data *data)
 {
-	if (c != '0' && c != '1' && c != 'A' && c != '2' && c != 'N'
-		&& c != 'S' && c != 'E' && c != 'W')
-	{
-		// free_all
-		printf("error\ninvalid character in map\n");
-		exit(1);
-	}
-}
-void free_data(t_data *data)
-{
-	int i;
-
-	i = 0;
 	if (data->map)
-	{
-		while (data->map[i])
-		{
-			free(data->map[i]);
-			i++;
-		}
-		free(data->map);
-	}
+		free_map(data->map);
 	if (data->textures.north)
 		free(data->textures.north);
 	if (data->textures.south)
@@ -34,9 +26,10 @@ void free_data(t_data *data)
 		free(data->textures.east);
 	free(data);
 }
-void free_map(char **map)
+
+void	free_map(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (map)
@@ -49,9 +42,23 @@ void free_map(char **map)
 		free(map);
 	}
 }
-void free_all_and_print_error(t_data *data, char **map)
+
+void	free_all_and_print_error(t_data *data, char **map, char *line)
 {
-	free_data(data);
-	free_map(map);
-    exit(1);
+	if (line)
+		free(line);
+	if (map)
+		free_map(map);
+	if (data)
+		free_data(data);
+	exit (1);
+}
+
+bool	check_textures(char *line)
+{
+	if (!ft_strncmp("NO", line, 2) || !ft_strncmp("SO", line, 2)
+		|| !ft_strncmp("WE", line, 2) || !ft_strncmp("EA", line, 2)
+		|| !ft_strncmp("F", line, 1) || !ft_strncmp("C", line, 1))
+		return (true);
+	return (false);
 }
